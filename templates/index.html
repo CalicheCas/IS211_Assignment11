@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>My TODO App</title>
+        <link rel="stylesheet" type="text/css" href="../static/css/tableStyle.css">
+    </head>
+    <body>
+        <div>
+            <h2>TO-DOs</h2>
+        </div>
+        <div>
+            <table id="todoTable">
+                <tr>
+                    <th>Id</th>
+                    <th>Task</th>
+                    <th>E-mail</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                    <th>Remove</th>
+                </tr>
+                {% for task in tasks %}
+                <tr>
+                    <td> {{task.id}} </td>
+                    <td> {{task.desc}} </td>
+                    <td> {{task.email}} </td>
+                    <td> {{task.priority}} </td>
+                    <td>
+                        <form action="/status" method="post">
+                            <select name="status">
+                                <option value="In progress">In Progress</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Completed">Completed</option>
+                            </select>
+                            <input id="currentRow" type="submit" value="Update">
+                        </form>
+                    </td>
+                    <td>
+                        <input type="button" value="Delete" onclick="deleteRow(this)"/>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div><br>
+        <div>
+            <form action="/submit" method="post">
+                <input type="text" name="task" placeholder="To Do Item">
+                <input type="text" name="email" placeholder="email">
+                <select name="priority">
+                            <option value="Low">Low</option>
+                            <option value="Medium">Medium</option>
+                            <option value="High">High</option>
+                </select><br>
+                <input type="submit" value="Add To Do Item">
+            </form>
+        </div><br>
+        <div>
+            <a href="/save"><input type="button" value="Save"></a>
+            <a href="/clear"><input type="button" value="Clear"></a>
+        </div>
+
+
+        <script language="javascript" type="text/javascript">
+            function deleteRow(x){
+                var row = x.parentNode.parentNode;
+                row.parentNode.removeChild(row);
+                console.log(row)
+
+                $.ajax({
+                        url: '/delete/1',
+                        success: function () {
+                            alert('Added');
+                        }
+                    });
+
+            }
+
+        </script>
+    </body>
+</html>
