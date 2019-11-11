@@ -26,14 +26,12 @@
                     <td> {{task.email}} </td>
                     <td> {{task.priority}} </td>
                     <td>
-                        <form action="/status" method="post">
-                            <select name="status">
-                                <option value="In progress">In Progress</option>
-                                <option value="Pending">Pending</option>
-                                <option value="Completed">Completed</option>
-                            </select>
-                            <input id="currentRow" type="submit" value="Update">
-                        </form>
+                        <select name="status">
+                            <option value="In progress">In Progress</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Completed">Completed</option>
+                        </select>
+                        <a href="/status"><input type="button" value="Update"></a>
                     </td>
                     <td>
                         <input type="button" value="Delete" onclick="deleteRow(this)"/>
@@ -60,18 +58,18 @@
         </div>
 
 
-        <script language="javascript" type="text/javascript">
+        <script>
             function deleteRow(x){
                 var row = x.parentNode.parentNode;
                 row.parentNode.removeChild(row);
-                console.log(row)
+                var cells = row.getElementsByTagName('td');
+                var id = cells[0].innerHTML.trim();
 
-                $.ajax({
-                        url: '/delete/1',
-                        success: function () {
-                            alert('Added');
-                        }
-                    });
+<!--                $.ajax({-->
+<!--                    url: "/delete/" + id + "/"-->
+<!--                    }).done(function(res) {-->
+<!--                    alert(res.name);-->
+<!--                });-->
 
             }
 

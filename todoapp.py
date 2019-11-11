@@ -48,7 +48,7 @@ def save():
     return redirect('/')
 
 
-@app.route('/delete/<id>', methods=['GET'])
+@app.route('/delete/<id>')
 def delete(id=None):
     print(id)
     return redirect('/')
@@ -63,9 +63,9 @@ def clear():
     return redirect('/')
 
 
-@app.route('/status', methods=['POST'])
+@app.route('/status')
 def updateStatus():
-    print("status update")
+    print("Under Construction")
     return redirect('/')
 
 
